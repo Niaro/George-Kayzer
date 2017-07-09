@@ -1,0 +1,9 @@
+<gk-ui-top-navigation></gk-ui-top-navigation>
+
+<gk-ui-sub-navigation [title]="(observable$ | async)?.title" [description]="(observable$ | async)?.text"></gk-ui-sub-navigation>
+
+<div class="main">
+  <router-outlet></router-outlet>
+</div>
+
+<router-outlet name='modal'></router-outlet>

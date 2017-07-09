@@ -1,0 +1,29 @@
+<h1>Weather module</h1>
+
+<gk-ui-loader [visible]="(weather$ | async)?.isFetching"></gk-ui-loader>
+
+<p>Load city data by clicking on it. </p>
+<gk-ui-city *ngFor="let city of cities" [image]="city.image" [name]="city.name" [longitude]="city.longitude" [latitude]="city.latitude" (onSelect)="loadCity($event)"></gk-ui-city>
+
+<h3>Form</h3>
+
+<form class="form" [formGroup]="form">
+  <gk-ui-input label="Longitude" placeholder="Enter longitude...." [control]="form.get('longitude')"></gk-ui-input>
+  <gk-ui-input label="Latitude" placeholder="Enter latitude...." [control]="form.get('latitude')"></gk-ui-input>
+
+  <gk-ui-button [disabled]="!form.valid"  text="Get Weather data" (click)="getWeather()"></gk-ui-button>
+</form>
+
+<br/>
+
+<gk-ui-notes *ngIf="!(weather$ | async)" type="info" text="Click on Get Weather data button to fetch info."></gk-ui-notes>
+
+<gk-ui-card *ngIf="(weather$ | async)?.data" [title]="(weather$ | async)?.data" description="Current Weather"></gk-ui-card>
+<gk-ui-notes *ngIf="(weather$ | async)?.dataError" type="danger" text="Error while fetching wather data"></gk-ui-notes>
+
+<gk-ui-air-quality *ngIf="(weather$ | async)?.airQuality" [number]="(weather$ | async)?.airQuality"></gk-ui-air-quality>
+<gk-ui-notes *ngIf="(weather$ | async)?.airQualityError" type="danger" text="Error while fetching qir quality"></gk-ui-notes>
+
+
+<gk-ui-forecast *ngIf="(weather$ | async)?.forecast" [forecast]="(weather$ | async)?.forecast?.query?.results?.channel?.item?.forecast"></gk-ui-forecast>
+<gk-ui-notes *ngIf="(weather$ | async)?.forecastError" type="danger" text="Error while fetching foreacast data"></gk-ui-notes>
