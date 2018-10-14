@@ -1,0 +1,23 @@
+<div class="action-bar">
+	<ng-content></ng-content>
+	<rt-toolbar (command)="onCommand($event)"></rt-toolbar>
+	<rt-checkbox text="Непрозрачный фон" [(value)]="room.isOpaque" (valueChange)="room.markAsDirty()"></rt-checkbox>
+	<rt-checkbox text="Скрыть название" [(value)]="room.isTextHidden" (valueChange)="room.markAsDirty()"></rt-checkbox>
+</div>
+
+<div #$viewport class="viewport">
+	<rt-plan #planView
+		[plan]="plan"
+		[tracingRoomId]="room?.id"
+		[disabled]="isEditing && !dotsPath?.empty"
+		[imageMaxWidth]="null"
+		[imageMaxHeight]="null">
+		<svg #$canvas class="canvas" [class.editing]="isEditing" [class.opaque]="room.isOpaque" [attr.viewBox]="planView.viewBox" xmlns="http://www.w3.org/2000/svg">
+			<g #$lockIcon class="icon-padlock"></g>
+			<svg:text *ngIf="!(dotEditing$|async) && !(dotsPathMoving$|async) && !(pending$|async) && dotsPath?.closed && !room.isTextHidden"
+				@fadeIn
+				[rt-plan-room-name]="room">
+			</svg:text>
+		</svg>
+	</rt-plan>
+</div>

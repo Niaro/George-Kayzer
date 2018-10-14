@@ -1,0 +1,45 @@
+<ng-content></ng-content>
+
+<div class="separator"></div>
+
+<button class="btn-base btn-icon"
+		(click)="command.next('renew')"
+		title="Заново">
+	<svg viewBox="0 0 16 16"> <path d="M14.34 3.58c-.346-.474-.83-1.028-1.36-1.56S11.893 1.007 11.42.66C10.616.067 10.225 0 10 0H2.25C1.56 0 1 .56 1 1.25v13.5c0 .69.56 1.25 1.25 1.25h11.5c.69 0 1.25-.56 1.25-1.25V5c0-.224-.068-.615-.66-1.42zm-2.07-.85c.48.48.857.91 1.135 1.27H11V1.595c.358.278.79.654 1.27 1.134zM14 14.75c0 .136-.114.25-.25.25H2.25c-.135 0-.25-.114-.25-.25V1.25c0-.135.115-.25.25-.25H10v3.5c0 .276.224.5.5.5H14v9.75z"/></svg>
+</button>
+
+<div class="separator"></div>
+
+<button class="btn-base btn-icon"
+		(click)="command.next('undo')"
+		[title]="'Отмена (' + hotkeyModifier + '+Z)'">
+	<svg viewBox="0 0 16 16"><path d="M8 1c-2.21 0-4.21.896-5.657 2.343L0 1v6h6L3.757 4.757C4.843 3.67 6.343 3 8 3c3.314 0 6 2.686 6 6 0 1.792-.786 3.4-2.032 4.5L13.29 15C14.953 13.534 16 11.39 16 9c0-4.418-3.582-8-8-8z"/></svg>
+</button>
+<button class="btn-base btn-icon"
+		(click)="command.next('redo')"
+		[title]="'Повторить (' + hotkeyModifier + '+Y)'">
+	<svg viewBox="0 0 16 16"><path d="M0 9c0 2.39 1.048 4.534 2.71 6l1.322-1.5c-1.246-1.1-2.03-2.708-2.03-4.5 0-3.314 2.685-6 6-6 1.656 0 3.156.672 4.242 1.757L10 7h6V1L13.66 3.343C12.21 1.895 10.21 1 8 1 3.584 1 0 4.582 0 9z"/></svg>
+</button>
+
+<div class="separator"></div>
+
+<button class="btn-base btn-icon btn-snap-axis"
+		[class.active]="isSnapToAxis"
+		(click)="isSnapToAxisMode = !isSnapToAxisMode"
+		title="Рисование по перпендикулярам (зажать Shift)" >
+	<svg viewBox="0 0 16 16">
+		<path d="M0 0 v16 h16 v-2 h-14 v-14 z" />
+		<path d="M3 3 h4 v1 h-4 z" />
+		<path d="M9 3 h4 v1 h-4 z" />
+		<path d="M12 3 v4 h1 v-4 z" />
+		<path d="M12 9 v4 h1 v-4 z" />
+	</svg>
+</button>
+<button class="btn-base btn-icon"
+		[class.active]="isSnapToDots"
+		(click)="isSnapToDots = !isSnapToDots"
+		title="Прилипание к последней точке для замыкания контура" >
+	<rt-octicon name="lock"></rt-octicon>
+</button>
+
+<div class="separator"></div>

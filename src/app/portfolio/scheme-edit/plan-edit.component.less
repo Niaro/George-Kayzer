@@ -1,0 +1,163 @@
+@import '~less';
+
+@color-initial-dot-fill: red;
+@color-snap: #ff00ea;
+@color-guide: blue;
+@transition: @transition-svg, r @transition-duration @transition-function,;
+@dot-r: 2px;
+@dot-first-r: 3px;
+@dot-first-stroke: 1px;
+
+:host {
+	display: flex;
+	flex-flow: column;
+
+	.action-bar {
+		display: flex;
+		align-items: center;
+		margin-bottom: @spacing-sm;
+		flex: 0 0 auto;
+
+		rt-checkbox {
+			margin-left: @spacing-md;
+		}
+	}
+
+	.viewport {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		overflow: auto;
+	}
+
+	rt-plan {
+		max-height: 100%;
+	}
+
+	::ng-deep .canvas {
+		.absolute();
+		width: 100%;
+		height: 100%;
+
+		text {
+			filter: url(#WhiteGlow);
+		}
+
+		.pointer,
+		.guide,
+		text {
+			pointer-events: none;
+		}
+
+		&.editing {
+			cursor: none;
+
+			.pointer {
+				opacity: 1;
+			}
+
+			.dot {
+				r: @dot-r !important;
+
+				&.first {
+					stroke-width: @dot-first-stroke;
+				}
+			}
+		}
+
+		&.snapped-dot:not(.editing) {
+			cursor: pointer;
+		}
+
+		&:not(.snapped-dot):not(.editing) {
+			.dots-path {
+				cursor: move; // fallback if grab cursor is unsupported
+				cursor: -webkit-grab;
+				cursor:         grab;
+
+				&:active {
+					cursor: -webkit-grabbing !important;
+					cursor:         grabbing !important;
+				}
+			}
+		}
+
+		&.opaque .dots-path.closed path {
+			fill: lighten(@color-guide, 46%) !important;
+		}
+
+		.icon-padlock,
+		.dots-path,
+		.shape {
+			transition: @transition;
+		}
+
+		.dots-path,
+		.pointer {
+			stroke: @color-guide;
+		}
+
+		.snap,
+		.pointer {
+			opacity: 0;
+		}
+
+		.guide {
+			stroke-dasharray: 2,3;
+			shape-rendering: crispEdges;
+
+			&.snap {
+				stroke-dasharray: 0;
+				stroke: @color-snap;
+			}
+		}
+
+		.dots-path {
+			path {
+				fill: transparent;
+				stroke-dasharray: 10,4;
+			}
+
+			.dot {
+				r: @dot-r;
+				fill: @color-guide;
+
+				&.first {
+					position: relative;
+					stroke: @color-guide;
+					fill: @color-initial-dot-fill;
+					stroke-width: 2px;
+					r: @dot-first-r;
+				}
+
+				&.last {
+				}
+			}
+
+			&.closed {
+				path {
+					fill: fade(@color-guide, 10);
+				}
+
+				&:hover .dot.first {
+					stroke-width: @dot-first-stroke;
+					r: @dot-r;
+				}
+
+				&:not(:hover) .dot {
+					r: 0;
+				}
+			}
+		}
+
+		.icon-padlock {
+			opacity: 0;
+			pointer-events: none;
+			fill: @color-text-strong;
+
+			&.show {
+				opacity: 1;
+			}
+		}
+	}
+}

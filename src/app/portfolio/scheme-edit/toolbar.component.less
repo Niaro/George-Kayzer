@@ -1,0 +1,44 @@
+@import '~less';
+
+:host {
+	.cancel-selection();
+	display: flex;
+
+	.separator {
+		width: 1px;
+		background: @color-border;
+		margin: 1px 5px;
+
+		&:first-child {
+			margin-left: 0;
+		}
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	.separator + button {
+		margin-left: 0;
+	}
+
+	button {
+		background: transparent;
+		border-color: transparent;
+		margin-left: 1px;
+
+		&:first-child {
+			margin-left: 0;
+		}
+
+		&:hover {
+			border-color: @color-primary;
+			background-color: @color-white;
+		}
+
+		&.active {
+			border-color: @color-primary;
+			background-color: fade(@color-primary, 12%);
+		}
+	}
+}
